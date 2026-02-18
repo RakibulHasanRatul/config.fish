@@ -1,4 +1,22 @@
 # fish bang bang plugin
+function __history_previous_command
+  switch (commandline -t)
+  case "!"
+    commandline -t $history[1]; commandline -f repaint
+  case "*"
+    commandline -i !
+  end
+end
+
+function __history_previous_command
+  switch (commandline -t)
+  case "!"
+    commandline -t $history[1]; commandline -f repaint
+  case "*"
+    commandline -i !
+  end
+end
+
 function _plugin-bang-bang_key_bindings --on-variable fish_key_bindings
     bind --erase !
     bind --erase '$'
