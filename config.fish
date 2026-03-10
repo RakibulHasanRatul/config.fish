@@ -1,4 +1,15 @@
+set fish_greeting
+
 # fish bang bang plugin
+function __history_previous_command_arguments
+  switch (commandline -t)
+  case "!"
+    commandline -t ""
+    commandline -f history-token-search-backward
+  case "*"
+    commandline -i '$'
+  end
+end
 function __history_previous_command
   switch (commandline -t)
   case "!"
@@ -7,7 +18,6 @@ function __history_previous_command
     commandline -i !
   end
 end
-
 function __history_previous_command
   switch (commandline -t)
   case "!"
@@ -16,7 +26,6 @@ function __history_previous_command
     commandline -i !
   end
 end
-
 function _plugin-bang-bang_key_bindings --on-variable fish_key_bindings
     bind --erase !
     bind --erase '$'
@@ -43,3 +52,13 @@ fish_add_path $HOME/.cargo/bin
 
 # aliases
 alias rm='rm -rfv'
+
+# load starship
+starship init fish | source
+
+# pnpm
+set -gx PNPM_HOME "/home/ratul/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
